@@ -1,0 +1,28 @@
+---
+- name: Install and configure Nginx on Amazon Linux 2023
+  hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Install Nginx
+      dnf: name-nginx state=present update_cache=true
+        
+      notify: 
+        - start nginx
+
+    - name: Copy default index.html
+      copy: src=html_files/index.html dest= /usr/share/nginx/html/index.html
+        owner: root
+        group: root
+        mode: '0644'
+      notify: restart nginx
+# Start Nginx service
+  handlers:
+    - name: start nginx
+      service: name=nginx enables=yes state=started
+
+# Restart Nginx service
+
+    - name: restart nginx
+      service:name= nginx state= restarted
+
