@@ -1,0 +1,30 @@
+ansible all -m ping 
+       ansible all -a "free -m"
+       ansible all -a "df -h"
+       ansible all -a "cat /etc/passwd"
+#user creation        
+ansible all -m user -a 'name=ravi password="Ravi@123"'
+ansible all -a "ls"
+ansible all -a "git --version"
+#file creation
+ansible all -m file -a 'name=/root/f1  state=touch'
+ansible all -m file -a 'name=/root/dir1  state=directory'
+ansible all -a "ls -lrth"
+ansible all -a "date"
+ansible all -a "uname -r"
+
+#copy
+ansible all -m copy -a 'src=test dest=/root'
+#yum
+ansible all -m yum  -a 'name=httpd state=present'
+ansible all -m yum  -a 'name=httpd state=absent'
+ansible all -m yum  -a 'name=git state=latest'
+ansible all -m yum  -a 'name=git state=absent'
+#service
+ansible all -m service  -a 'name=httpd state=started'
+ansible all -m service  -a 'name=httpd enabled=yes'
+#create index.html file
+#<h1> This is webserver deployed through Ansible </h1>  
+ansible all -m copy -a 'src=index.html dest=/var/www/html'
+ansible all -m copy -a 'curl ifconfig.io'
+
